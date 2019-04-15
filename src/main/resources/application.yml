@@ -1,0 +1,70 @@
+# Tomcat
+server:
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 1000
+    min-spare-threads: 30
+  port: 9090
+  connection-timeout: 5000ms
+  servlet:
+    context-path: /sbcweb
+#spring
+spring:
+  # 环境 dev|test|prod
+  #profiles:
+  #  active: dev
+  # jackson时间格式化
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  # 文件上传大小
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+      enabled: true
+  mvc:
+    throw-exception-if-no-handler-found: true
+
+  # 数据源
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/sbcweb?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
+      username: root
+      password: 123
+      initial-size: 10
+      max-active: 100
+      min-idle: 10
+      max-wait: 60000
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      #Oracle需要打开注释
+      #validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        #login-username: admin
+        #login-password: admin
+      filter:
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: false
+        wall:
+          config:
+            multi-statement-allow: true
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: mysql
+swagger:
+  enabled: true
