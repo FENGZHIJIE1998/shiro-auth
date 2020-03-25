@@ -26,7 +26,7 @@ public class AuthRealm extends AuthorizingRealm {
 
     @Override
     /**
-     * 授权(验证权限时候调用
+     * 授权 获取用户的角色和权限
      *@param  [principals]
      *@return org.apache.shiro.authz.AuthorizationInfo
      */
@@ -49,11 +49,12 @@ public class AuthRealm extends AuthorizingRealm {
 
     @Override
     /**
-     * 认证(登陆时候调用)
+     * 认证 判断token的有效性
      *@param  [token]
      *@return org.apache.shiro.authc.AuthenticationInfo
      */
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+        //获取token，既前端传入的token
         String accessToken = (String) token.getPrincipal();
         //1. 根据accessToken，查询用户信息
         SysToken tokenEntity = shiroService.findByToken(accessToken);

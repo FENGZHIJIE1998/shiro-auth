@@ -39,9 +39,7 @@ public class AuthFilter extends AuthenticatingFilter {
     protected AuthenticationToken createToken(ServletRequest request, ServletResponse response) throws Exception {
         //获取请求token
         String token = getRequestToken((HttpServletRequest) request);
-        if (StringUtils.isBlank(token)) {
-            return null;
-        }
+
         return new AuthToken(token);
     }
 
@@ -86,7 +84,7 @@ public class AuthFilter extends AuthenticatingFilter {
         return executeLogin(request, response);
     }
     /**
-     * 登陆失败时候调用
+     * token失效时候调用
      */
     @Override
     protected boolean onLoginFailure(AuthenticationToken token, AuthenticationException e, ServletRequest request, ServletResponse response) {
@@ -100,7 +98,7 @@ public class AuthFilter extends AuthenticatingFilter {
             Throwable throwable = e.getCause() == null ? e : e.getCause();
             Map<String, Object> result = new HashMap<>();
             result.put("status", "400");
-            result.put("msg", "登陆失败--onLoginFailure");
+            result.put("msg", "Token无效--onLoginFailure");
 
             String json = JSON.toJSONString(result);
             httpResponse.getWriter().print(json);
