@@ -1,7 +1,7 @@
 package com.itaem.crazy.shirodemo.modules.shiro.auth;
 
 import com.alibaba.fastjson.JSON;
-import com.google.gson.Gson;
+
 
 
 import com.itaem.crazy.shirodemo.common.utils.HttpContextUtils;
@@ -79,7 +79,7 @@ public class AuthFilter extends AuthenticatingFilter {
             Map<String, Object> result = new HashMap<>();
             result.put("status", "400");
             result.put("msg", "未登录--onAccessDenied");
-            String json = new Gson().toJson(result);
+            String json = JSON.toJSONString(result);
             httpResponse.getWriter().print(json);
             return false;
         }
@@ -101,6 +101,7 @@ public class AuthFilter extends AuthenticatingFilter {
             Map<String, Object> result = new HashMap<>();
             result.put("status", "400");
             result.put("msg", "登陆失败--onLoginFailure");
+
             String json = JSON.toJSONString(result);
             httpResponse.getWriter().print(json);
         } catch (IOException e1) {
