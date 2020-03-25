@@ -1,4 +1,4 @@
-package com.itaem.crazy.shirodemo.common;
+package com.itaem.crazy.shirodemo.common.utils;
 
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -6,7 +6,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @Author CrazyJay
+ * @Author 大誌
  * @Date 2019/3/31 11:20
  * @Version 1.0
  */

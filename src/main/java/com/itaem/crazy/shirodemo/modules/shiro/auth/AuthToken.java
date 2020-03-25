@@ -4,7 +4,7 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
 
 /**
- * @Author CrazyJay
+ * @Author 大誌
  * @Date 2019/3/31 10:58
  * @Version 1.0
  */

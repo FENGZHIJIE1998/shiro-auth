@@ -7,7 +7,7 @@ import com.itaem.crazy.shirodemo.modules.shiro.entity.User;
 import java.util.Map;
 
 /**
- * @Author CrazyJay
+ * @Author 大誌
  * @Date 2019/3/30 22:18
  * @Version 1.0
  */

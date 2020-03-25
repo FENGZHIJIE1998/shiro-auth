@@ -4,7 +4,7 @@ import java.security.MessageDigest;
 import java.util.UUID;
 
 /**
- * @Author CrazyJay
+ * @Author 大誌
  * @Date 2019/3/31 11:01
  * @Version 1.0
  */

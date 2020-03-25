@@ -4,11 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 
 
-import com.itaem.crazy.shirodemo.common.HttpContextUtils;
+import com.itaem.crazy.shirodemo.common.utils.HttpContextUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.web.filter.authc.AuthenticatingFilter;
 
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,7 +23,7 @@ import java.util.Map;
 /**
  * auth过滤器
  *
- * @Author CrazyJay
+ * @Author 大誌
  * @Date 2019/3/31 10:38
  * @Version 1.0
  */

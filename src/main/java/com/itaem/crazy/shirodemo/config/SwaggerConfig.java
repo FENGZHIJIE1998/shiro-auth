@@ -40,7 +40,7 @@ public class SwaggerConfig {
                 .title("cms")
                 .description("ITAEM | 艾腾团队")
                 // 作者信息
-                .contact(new Contact("CrazyJay", "https://www.baidu.com/", "793914255@qq.com"))
+                .contact(new Contact("大誌", "https://www.baidu.com/", "793914255@qq.com"))
                 .version("1.0.0")
                 .build();
     }
