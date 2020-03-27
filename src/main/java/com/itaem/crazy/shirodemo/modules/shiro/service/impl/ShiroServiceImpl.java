@@ -28,10 +28,6 @@ public class ShiroServiceImpl implements ShiroService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private RoleRepository roleRepository;
-    @Autowired
-    private PermissionRepository permissionRepository;
-    @Autowired
     private SysTokenRepository sysTokenRepository;
 
     /**
@@ -87,7 +83,6 @@ public class ShiroServiceImpl implements ShiroService {
 
     @Override
     public void logout(String token) {
-
         SysToken byToken = findByToken(token);
         //生成一个token
         token = TokenGenerator.generateValue();
