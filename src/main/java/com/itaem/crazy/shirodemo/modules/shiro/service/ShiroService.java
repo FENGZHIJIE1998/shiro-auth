@@ -28,9 +28,9 @@ public interface ShiroService {
 
      /**
       * logout
-      * @param userId
+      * @param token
       */
-     void logout(Integer userId);
+     void logout(String token);
 
      /**
       * find token by token

@@ -55,8 +55,8 @@ public class ShiroServiceImpl implements ShiroService {
      *@param  [userId]
      *@return Result
      */
-    public Map<String,Object> createToken(Integer userId) {
-        Map<String,Object> result  = new HashMap<>();
+    public Map<String, Object> createToken(Integer userId) {
+        Map<String, Object> result = new HashMap<>();
         //生成一个token
         String token = TokenGenerator.generateValue();
         //当前时间
@@ -86,12 +86,14 @@ public class ShiroServiceImpl implements ShiroService {
     }
 
     @Override
-    public void logout(Integer userId) {
+    public void logout(String token) {
+
+        SysToken byToken = findByToken(token);
         //生成一个token
-        String token = TokenGenerator.generateValue();
+        token = TokenGenerator.generateValue();
         //修改token
         SysToken tokenEntity = new SysToken();
-        tokenEntity.setUserId(userId);
+        tokenEntity.setUserId(byToken.getUserId());
         tokenEntity.setToken(token);
         sysTokenRepository.save(tokenEntity);
     }

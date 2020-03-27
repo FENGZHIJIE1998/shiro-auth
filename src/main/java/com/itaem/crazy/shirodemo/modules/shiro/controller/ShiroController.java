@@ -1,6 +1,7 @@
 package com.itaem.crazy.shirodemo.modules.shiro.controller;
 
 
+import com.itaem.crazy.shirodemo.common.utils.TokenUtil;
 import com.itaem.crazy.shirodemo.modules.shiro.DTO.LoginDTO;
 import com.itaem.crazy.shirodemo.modules.shiro.entity.User;
 import com.itaem.crazy.shirodemo.modules.shiro.service.ShiroService;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.xml.transform.Result;
 import java.io.IOException;
 import java.util.HashMap;
@@ -36,7 +39,8 @@ public class ShiroController {
      */
     @ApiOperation(value = "登陆", notes = "参数:用户名 密码")
     @PostMapping("/sys/login")
-    public Map<String, Object> login(@RequestBody LoginDTO loginDTO) {
+    public Map<String, Object> login(@RequestBody LoginDTO loginDTO, HttpSession session) {
+
         Map<String, Object> result = new HashMap<>();
         String username = loginDTO.getUsername();
         String password = loginDTO.getPassword();
@@ -45,13 +49,13 @@ public class ShiroController {
         User user = shiroService.findByUsername(username);
         //账号不存在、密码错误
         if (user == null || !user.getPassword().equals(password)) {
-            result.put("status", "400");
+            result.put("status", 400);
             result.put("msg", "账号或密码有误");
             return result;
         } else {
             //生成token，并保存到数据库
             result = shiroService.createToken(user.getUserId());
-            result.put("status", "200");
+            result.put("status", 200);
             result.put("msg", "登陆成功");
             return result;
         }
@@ -60,14 +64,14 @@ public class ShiroController {
     /**
      * 退出
      */
-    @ApiOperation(value = "登出", notes = "参数:无")
+    @ApiOperation(value = "登出", notes = "参数:token")
     @PostMapping("/sys/logout")
-    public Map<String, Object> logout() {
+    public Map<String, Object> logout(HttpServletRequest httpServletRequest) {
         Map<String, Object> result = new HashMap<>();
-        User user = (User) SecurityUtils.getSubject().getPrincipal();
-        shiroService.logout(user.getUserId());
+        String token = TokenUtil.getRequestToken(httpServletRequest);
+        shiroService.logout(token);
         result.put("status", "200");
-        result.put("msg", "登陆成功");
+        result.put("msg", "您已安全退出系统");
         return result;
     }
 }

@@ -3,8 +3,8 @@ package com.itaem.crazy.shirodemo.modules.shiro.auth;
 import com.alibaba.fastjson.JSON;
 
 
-
-import com.itaem.crazy.shirodemo.common.utils.HttpContextUtils;
+import com.itaem.crazy.shirodemo.common.utils.HttpContextUtil;
+import com.itaem.crazy.shirodemo.common.utils.TokenUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -30,6 +30,7 @@ import java.util.Map;
 public class AuthFilter extends AuthenticatingFilter {
     /**
      * 生成自定义token
+     *
      * @param request
      * @param response
      * @return
@@ -38,13 +39,14 @@ public class AuthFilter extends AuthenticatingFilter {
     @Override
     protected AuthenticationToken createToken(ServletRequest request, ServletResponse response) throws Exception {
         //获取请求token
-        String token = getRequestToken((HttpServletRequest) request);
+        String token = TokenUtil.getRequestToken((HttpServletRequest) request);
 
         return new AuthToken(token);
     }
 
     /**
      * 步骤1.所有请求全部拒绝访问
+     *
      * @param request
      * @param response
      * @param mappedValue
@@ -60,6 +62,7 @@ public class AuthFilter extends AuthenticatingFilter {
 
     /**
      * 步骤2，拒绝访问的请求，会调用onAccessDenied方法，onAccessDenied方法先获取 token，再调用executeLogin方法
+     *
      * @param request
      * @param response
      * @return
@@ -68,21 +71,22 @@ public class AuthFilter extends AuthenticatingFilter {
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
         //获取请求token，如果token不存在，直接返回
-        String token = getRequestToken((HttpServletRequest) request);
+        String token = TokenUtil.getRequestToken((HttpServletRequest) request);
         if (StringUtils.isBlank(token)) {
             HttpServletResponse httpResponse = (HttpServletResponse) response;
             httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
-            httpResponse.setHeader("Access-Control-Allow-Origin", HttpContextUtils.getOrigin());
+            httpResponse.setHeader("Access-Control-Allow-Origin", HttpContextUtil.getOrigin());
             httpResponse.setCharacterEncoding("UTF-8");
             Map<String, Object> result = new HashMap<>();
-            result.put("status", "400");
-            result.put("msg", "未登录--onAccessDenied");
+            result.put("status", 400);
+            result.put("msg", "请先登录");
             String json = JSON.toJSONString(result);
             httpResponse.getWriter().print(json);
             return false;
         }
         return executeLogin(request, response);
     }
+
     /**
      * token失效时候调用
      */
@@ -91,14 +95,14 @@ public class AuthFilter extends AuthenticatingFilter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         httpResponse.setContentType("application/json;charset=utf-8");
         httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
-        httpResponse.setHeader("Access-Control-Allow-Origin", HttpContextUtils.getOrigin());
+        httpResponse.setHeader("Access-Control-Allow-Origin", HttpContextUtil.getOrigin());
         httpResponse.setCharacterEncoding("UTF-8");
         try {
             //处理登录失败的异常
             Throwable throwable = e.getCause() == null ? e : e.getCause();
             Map<String, Object> result = new HashMap<>();
-            result.put("status", "400");
-            result.put("msg", "Token无效--onLoginFailure");
+            result.put("status", 400);
+            result.put("msg", "登录凭证已失效，请重新登录");
 
             String json = JSON.toJSONString(result);
             httpResponse.getWriter().print(json);
@@ -106,17 +110,5 @@ public class AuthFilter extends AuthenticatingFilter {
         }
         return false;
     }
-    /**
-     * 获取请求的token
-     */
-    private String getRequestToken(HttpServletRequest httpRequest) {
 
-        //从header中获取token
-        String token = httpRequest.getHeader("token");
-        //如果header中不存在token，则从参数中获取token
-        if (StringUtils.isBlank(token)) {
-            token = httpRequest.getParameter("token");
-        }
-        return token;
-    }
 }
