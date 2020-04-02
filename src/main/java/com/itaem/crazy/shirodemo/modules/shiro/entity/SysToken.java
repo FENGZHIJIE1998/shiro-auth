@@ -6,14 +6,13 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @Author 大誌
  * @Date 2019/3/31 10:56
  * @Version 1.0
  */
-
 @Getter
 @Setter
 @Entity
@@ -33,10 +32,10 @@ public class SysToken implements Serializable {
     /**
      * 过期时间
      */
-    private Date expireTime;
+    private LocalDateTime expireTime;
 
     /**
      * 更新时间
      */
-    private Date updateTime;
+    private LocalDateTime updateTime;
 }

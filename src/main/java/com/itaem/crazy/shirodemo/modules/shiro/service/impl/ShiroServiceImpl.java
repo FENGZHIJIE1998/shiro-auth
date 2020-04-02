@@ -12,9 +12,11 @@ import com.itaem.crazy.shirodemo.modules.shiro.service.ShiroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Executors;
 
 /**
  * @Author 大誌
@@ -42,8 +44,8 @@ public class ShiroServiceImpl implements ShiroService {
         return user;
     }
 
-    //12小时后过期
-    private final static int EXPIRE = 3600 * 12;
+    //12小时后失效
+    private final static int EXPIRE = 12 ;
 
     @Override
     /**
@@ -56,9 +58,10 @@ public class ShiroServiceImpl implements ShiroService {
         //生成一个token
         String token = TokenGenerator.generateValue();
         //当前时间
-        Date now = new Date();
+        LocalDateTime now = LocalDateTime.now();
         //过期时间
-        Date expireTime = new Date(now.getTime() + EXPIRE * 1000);
+        LocalDateTime expireTime = now.plusHours(EXPIRE);
+
         //判断是否生成过token
         SysToken tokenEntity = sysTokenRepository.findByUserId(userId);
         if (tokenEntity == null) {

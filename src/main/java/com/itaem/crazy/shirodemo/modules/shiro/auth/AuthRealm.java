@@ -13,6 +13,8 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 /**
  * @Author 大誌
  * @Date 2019/3/30 21:38
@@ -59,7 +61,8 @@ public class AuthRealm extends AuthorizingRealm {
         //1. 根据accessToken，查询用户信息
         SysToken tokenEntity = shiroService.findByToken(accessToken);
         //2. token失效
-        if (tokenEntity == null || tokenEntity.getExpireTime().getTime() < System.currentTimeMillis()) {
+
+        if (tokenEntity == null || tokenEntity.getExpireTime().isBefore(LocalDateTime.now())) {
             throw new IncorrectCredentialsException("token失效，请重新登录");
         }
         //3. 调用数据库的方法, 从数据库中查询 username 对应的用户记录
