@@ -66,9 +66,10 @@ public class ShiroController {
      */
     @ApiOperation(value = "登出", notes = "参数:token")
     @PostMapping("/sys/logout")
-    public Map<String, Object> logout(HttpServletRequest httpServletRequest) {
+    public Map<String, Object> logout(String token ,HttpServletRequest httpServletRequest) {
         Map<String, Object> result = new HashMap<>();
-        String token = TokenUtil.getRequestToken(httpServletRequest);
+        //参数里的token是swagger测试用，开发中用下面方法
+        token = TokenUtil.getRequestToken(httpServletRequest);
         shiroService.logout(token);
         result.put("status", "200");
         result.put("msg", "您已安全退出系统");
