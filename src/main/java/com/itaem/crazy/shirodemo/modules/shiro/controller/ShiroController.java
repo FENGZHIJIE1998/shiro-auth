@@ -39,7 +39,7 @@ public class ShiroController {
      */
     @ApiOperation(value = "登陆", notes = "参数:用户名 密码")
     @PostMapping("/sys/login")
-    public Map<String, Object> login(@RequestBody LoginDTO loginDTO, HttpSession session) {
+    public Map<String, Object> login(@RequestBody LoginDTO loginDTO) {
 
         Map<String, Object> result = new HashMap<>();
         String username = loginDTO.getUsername();
@@ -51,14 +51,13 @@ public class ShiroController {
         if (user == null || !user.getPassword().equals(password)) {
             result.put("status", 400);
             result.put("msg", "账号或密码有误");
-            return result;
         } else {
             //生成token，并保存到数据库
             result = shiroService.createToken(user.getUserId());
             result.put("status", 200);
             result.put("msg", "登陆成功");
-            return result;
         }
+        return result;
     }
 
     /**

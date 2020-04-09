@@ -90,10 +90,8 @@ public class ShiroServiceImpl implements ShiroService {
         //生成一个token
         token = TokenGenerator.generateValue();
         //修改token
-        SysToken tokenEntity = new SysToken();
-        tokenEntity.setUserId(byToken.getUserId());
-        tokenEntity.setToken(token);
-        sysTokenRepository.save(tokenEntity);
+        byToken.setToken(token);
+        sysTokenRepository.save(byToken);
     }
 
     @Override
