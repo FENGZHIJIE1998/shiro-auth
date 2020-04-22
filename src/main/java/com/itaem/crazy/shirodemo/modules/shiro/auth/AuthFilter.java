@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * auth过滤器
+ * Shiro自定义auth过滤器
  *
  * @Author 大誌
  * @Date 2019/3/31 10:38

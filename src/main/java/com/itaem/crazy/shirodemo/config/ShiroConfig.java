@@ -17,6 +17,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
+ * ShiroConfig配置
  * @Author 大誌
  * @Date 2019/3/30 21:50
  * @Version 1.0
@@ -36,11 +37,12 @@ public class ShiroConfig {
     public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
         shiroFilter.setSecurityManager(securityManager);
-        //oauth过滤
+        //auth过滤
         Map<String, Filter> filters = new HashMap<>();
         filters.put("auth", new AuthFilter());
         shiroFilter.setFilters(filters);
         Map<String, String> filterMap = new LinkedHashMap<>();
+        // anno匿名访问  auth验证
         filterMap.put("/webjars/**", "anon");
         filterMap.put("/druid/**", "anon");
         filterMap.put("/sys/login", "anon");
@@ -58,6 +60,7 @@ public class ShiroConfig {
     public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
         return new LifecycleBeanPostProcessor();
     }
+
 
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {

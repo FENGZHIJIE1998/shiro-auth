@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
+ * token实体类
  * @Author 大誌
  * @Date 2019/3/31 10:56
  * @Version 1.0

@@ -4,18 +4,21 @@ import org.apache.shiro.authz.AuthorizationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@ControllerAdvice
+/**
+ * 全局异常处理器
+ */
+@RestControllerAdvice
 public class MyExceptionHandler {
 
 
     @ExceptionHandler(value = AuthorizationException.class)
-    @ResponseBody
     public Map<String, String> handleException(AuthorizationException e) {
         //e.printStackTrace();
         Map<String, String> result = new HashMap<String, String>();

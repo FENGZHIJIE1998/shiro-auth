@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 /**
+ * 角色实体类
  * @Author 大誌
  * @Date 2019/4/7 14:44
  * @Version 1.0

@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 /**
+ * 用户实体类
  * @Author 大誌
  * @Date 2019/4/7 14:44
  * @Version 1.0

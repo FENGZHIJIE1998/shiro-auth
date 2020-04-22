@@ -25,12 +25,17 @@ import java.util.concurrent.Executors;
  */
 @Service
 public class ShiroServiceImpl implements ShiroService {
+    //12小时后失效
+    private final static int EXPIRE = 12;
 
 
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private SysTokenRepository sysTokenRepository;
+    private final UserRepository userRepository;
+    private final SysTokenRepository sysTokenRepository;
+
+    public ShiroServiceImpl(UserRepository userRepository, SysTokenRepository sysTokenRepository) {
+        this.userRepository = userRepository;
+        this.sysTokenRepository = sysTokenRepository;
+    }
 
     /**
      * 根据username查找用户
@@ -44,8 +49,6 @@ public class ShiroServiceImpl implements ShiroService {
         return user;
     }
 
-    //12小时后失效
-    private final static int EXPIRE = 12 ;
 
     @Override
     /**
@@ -61,29 +64,33 @@ public class ShiroServiceImpl implements ShiroService {
         LocalDateTime now = LocalDateTime.now();
         //过期时间
         LocalDateTime expireTime = now.plusHours(EXPIRE);
-
         //判断是否生成过token
         SysToken tokenEntity = sysTokenRepository.findByUserId(userId);
         if (tokenEntity == null) {
             tokenEntity = new SysToken();
             tokenEntity.setUserId(userId);
-            tokenEntity.setToken(token);
-            tokenEntity.setUpdateTime(now);
-            tokenEntity.setExpireTime(expireTime);
             //保存token
-            sysTokenRepository.save(tokenEntity);
-        } else {
             tokenEntity.setToken(token);
             tokenEntity.setUpdateTime(now);
             tokenEntity.setExpireTime(expireTime);
+        } else {
             //更新token
-            sysTokenRepository.save(tokenEntity);
+            tokenEntity.setToken(token);
+            tokenEntity.setUpdateTime(now);
+            tokenEntity.setExpireTime(expireTime);
         }
+        sysTokenRepository.save(tokenEntity);
         result.put("token", token);
-        result.put("expire", EXPIRE);
+        result.put("expire", expireTime);
         return result;
     }
 
+    /**
+     * 更新数据库的token，使前端拥有的token失效
+     * 防止黑客利用token搞事情
+     *
+     * @param token
+     */
     @Override
     public void logout(String token) {
         SysToken byToken = findByToken(token);
@@ -91,6 +98,7 @@ public class ShiroServiceImpl implements ShiroService {
         token = TokenGenerator.generateValue();
         //修改token
         byToken.setToken(token);
+        //使前端获取到的token失效
         sysTokenRepository.save(byToken);
     }
 

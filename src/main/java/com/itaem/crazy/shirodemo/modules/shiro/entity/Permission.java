@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
+ * 权限实体类
  * @Author 大誌
  * @Date 2019/4/7 14:45
  * @Version 1.0

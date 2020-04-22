@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.util.UUID;
 
 /**
+ * token生成器
  * @Author 大誌
  * @Date 2019/3/31 11:01
  * @Version 1.0
@@ -28,6 +29,11 @@ public class TokenGenerator {
         return r.toString();
     }
 
+    /**
+     * 生成Token
+     * @param param
+     * @return
+     */
     public static String generateValue(String param) {
         try {
             MessageDigest algorithm = MessageDigest.getInstance("MD5");

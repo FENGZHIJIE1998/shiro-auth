@@ -4,6 +4,9 @@ import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * token工具类
+ */
 public class TokenUtil {
     /**
      * 获取请求的token
