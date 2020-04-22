@@ -38,10 +38,10 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("cms")
+                .title("shiro")
                 .description("ITAEM | 艾腾团队")
                 // 作者信息
-                .contact(new Contact("大誌", "https://www.baidu.com/", "793914255@qq.com"))
+                .contact(new Contact("大誌", "https://blog.csdn.net/weixin_42236404", "793914255@qq.com"))
                 .version("1.0.0")
                 .build();
     }
