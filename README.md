@@ -3,9 +3,9 @@
 提供一套基于SpringBoo+shiro的权限管理思路.
 前后端都加以控制,做到按钮/接口级别的权限。
 
-###演示地址 https://shiro.itaem.top
+### 演示地址 https://shiro.itaem.top
 
-###默认用户
+### 默认用户
 |用户|	角色|	权限|
 |  ----  | ----  | ---- |
 |Jack|	SVIP|	select;save;delete;update|
