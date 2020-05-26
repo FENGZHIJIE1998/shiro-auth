@@ -75,7 +75,7 @@ public class ShiroController {
     public Map<String, Object> logout(@RequestHeader("token")String token) {
         Map<String, Object> result = new HashMap<>();
         shiroService.logout(token);
-        result.put("status", "200");
+        result.put("status", 200);
         result.put("msg", "您已安全退出系统");
         return result;
     }

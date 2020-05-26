@@ -45,7 +45,7 @@ spring:
         url-pattern: /druid/*
       filter:
         stat:
-          log-slow-sql: true
+          log-slow-sql: false
           slow-sql-millis: 1000
           merge-sql: false
         wall:
