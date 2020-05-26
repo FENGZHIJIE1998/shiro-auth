@@ -5,6 +5,7 @@
 演示地址 shiro.itaem.top
 ###默认用户
 |用户|	角色|	权限|
+|  ----  | ----  | ---- |
 |Jack|	SVIP|	select;save;delete;update|
 |Rose|	VIP|	  select;save;update|
 |Paul|	P|	    select|
