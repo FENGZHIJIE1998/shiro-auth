@@ -18,6 +18,7 @@ import java.util.Map;
 
 /**
  * ShiroConfig配置
+ *
  * @Author 大誌
  * @Date 2019/3/30 21:50
  * @Version 1.0
@@ -50,6 +51,8 @@ public class ShiroConfig {
         filterMap.put("/v2/api-docs", "anon");
         filterMap.put("/swagger-ui.html", "anon");
         filterMap.put("/swagger-resources/**", "anon");
+        filterMap.put("/doc.html", "anon");
+        // 除了以上路径，其他都需要权限验证
         filterMap.put("/**", "auth");
         shiroFilter.setFilterChainDefinitionMap(filterMap);
 
@@ -68,4 +71,5 @@ public class ShiroConfig {
         advisor.setSecurityManager(securityManager);
         return advisor;
     }
+
 }

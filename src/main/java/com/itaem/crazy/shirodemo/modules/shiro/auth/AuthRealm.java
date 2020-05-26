@@ -8,6 +8,7 @@ import com.itaem.crazy.shirodemo.modules.shiro.service.ShiroService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.realm.AuthenticatingRealm;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import java.time.LocalDateTime;
 
 /**
  * Shiro自定义Realm
+ *
  * @Author 大誌
  * @Date 2019/3/30 21:38
  * @Version 1.0
