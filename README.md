@@ -4,10 +4,10 @@
 前后端都加以控制,做到按钮/接口级别的权限。
 演示地址 shiro.itaem.top
 ###默认用户
-|用户|	角色|	权限
-|Jack|	SVIP|	select;save;delete;update
-|Rose|	VIP|	  select;save;update
-|Paul|	P|	    select
+|用户|	角色|	权限|
+|Jack|	SVIP|	select;save;delete;update|
+|Rose|	VIP|	  select;save;update|
+|Paul|	P|	    select|
 
 ### 后台基于 Springboot JPA Swagger Shiro
 ### 前端基于 VUE ElementUI
