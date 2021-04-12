@@ -19,7 +19,7 @@ import java.util.Map;
  * @Version 1.0
  */
 @Api(tags = "测试")
-@RestController("/test")
+@RestController
 public class TestController {
 
     @RequiresPermissions({"save"}) //没有的话 AuthorizationException
